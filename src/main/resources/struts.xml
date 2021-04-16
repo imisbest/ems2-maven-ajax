@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<struts>
+    <package name="emp" extends="struts-default" namespace="/emp">
+        <interceptors>
+            <interceptor name="MyInterceptor1" class="com.csw.interceptor.MyInterceptor1"></interceptor>
+            <interceptor-stack name="myDefaultStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="MyInterceptor1"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <action name="emp_*" class="com.csw.controller.EmpAction" method="{1}">
+            <result name="update" type="redirect">/update.jsp</result>
+            <result name="FirstPageAction" type="redirectAction">emp_FirstPageAction</result>
+            <result name="addEmp" type="redirect">/addEmp.jsp</result>
+            <result name="emplist" type="redirect">/emplist.jsp</result>
+            <result name="login" type="redirect">/login.jsp</result>
+            <interceptor-ref name="myDefaultStack"></interceptor-ref>
+        </action>
+    </package>
+
+
+    <package name="user" extends="struts-default" namespace="/user">
+        <action name="captcha" class="com.csw.controller.CaptchaAction">
+            <!-- 以IO流的方式响应结果 -->
+            <result type="stream"></result>
+        </action>
+        <action name="user_*" class="com.csw.controller.User2Action" method="{1}">
+            <result name="login" type="redirect">/login.jsp</result>
+            <result name="FirstPageAction" type="chain">
+                <param name="namespace">/emp</param>
+                <param name="actionName">emp_FirstPageAction</param>
+            </result>
+            <result name="regist" type="redirect">/regist.jsp</result>
+            <result name="registnotnull" type="redirect">/regist.jsp?nameMsg=username is registed!</result>
+            <result name="registnull" type="redirect">/regist.jsp?nameMsg=username is OK!</result>
+        </action>
+    </package>
+
+</struts>

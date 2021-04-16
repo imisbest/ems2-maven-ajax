@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csw.dao.UserDao">
+
+
+	<select id="queryByUsernameAndPassword" resultType="User2">
+		select
+		username,password,truename,sex from user2 where username=#{0} and password=#{1}
+	</select>
+	
+	<insert id="addUser" >
+		insert into user2 values(#{username},#{password},#{truename},#{sex})
+	</insert>
+	<select id="queryBy" resultType="User2">
+		SELECT  * from user2 WHERE username=#{username}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
